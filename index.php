@@ -34,9 +34,9 @@
 					<textarea id="form-i-input" cols="30" rows="5" name="form-i-input" placeholder="Paste your text here" class="uk-width-1-1 uk-width-medium-1-2"><?php if ($_POST['form-i-input']) { echo $_POST['form-i-input']; }?></textarea>
 				</div>
 				<div class="uk-form-row">
-					<input type="checkbox" id="form-i-images-locations" name="form-i-images-locations" checked>
+					<input type="checkbox" id="form-i-images-locations" name="form-i-images-locations" <?php if (isset($_POST['form-i-images-locations'])) { echo "checked";} ?> >
 					<label for="form-i-images-locations">Images for locations</label>
-					<input type="checkbox" id="form-i-images-people" name="form-i-images-people" checked>
+					<input type="checkbox" id="form-i-images-people" name="form-i-images-people" <?php if (isset($_POST['form-i-images-people'])) { echo "checked";} ?> >
 					<label for="form-i-images-people">Images for people</label>	
 				</div>
 				<div class="uk-form-row">

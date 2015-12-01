@@ -84,12 +84,12 @@ class Enhancer {
 	}
 	function getImagesForPeople() {
 
-		// $imgrights = "&as_rights=cc_publicdomain";
+		$imgrights = "&as_rights=cc_publicdomain";
 		$imgtype = "&imgtype=face";
 
 		// get images for persons
 		foreach ($this->meta->people as $person) {
-			$json = $this->get_url_contents('http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=' . urlencode($person) . $imgtype);
+			$json = $this->get_url_contents('http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=' . urlencode($person) . $imgtype. $imgrights);
 			$data = json_decode($json);
 			// all results for one person
 			foreach ($data->responseData->results as $result) {
