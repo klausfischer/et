@@ -2,8 +2,8 @@
 
 ## Installation
 
-- register at [aylien.com](http://aylien.com/) where you get an *App ID* and *App Key*
-- create a file ``config/config.php`` where you add the following lines:
+- Register at [aylien.com](http://aylien.com/) where you get an *App ID* and *App Key*
+- Create a file ``config/config.php`` where you add the following lines:
 
 ```
     <?php
@@ -12,11 +12,5 @@
     ?>
 ```
 
-- On Windows run ``php composer.phar install``, on Mac OSX ``composer isntall``
-
-## Todo
-
-- maybe switch to concept extraction
-- remove quotes “” ’
-- links for 
-- autotagging
+- On Windows run ``php composer.phar install``, on Mac OSX ``composer install`` to install Aylien from the composer repository
+- Call ``index.php`` 

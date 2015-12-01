@@ -38,6 +38,11 @@
 					<label for="form-i-images-locations">Images for locations</label>
 					<input type="checkbox" id="form-i-images-people" name="form-i-images-people" <?php if (isset($_POST['form-i-images-people'])) { echo "checked";} ?> >
 					<label for="form-i-images-people">Images for people</label>	
+
+					<input type="checkbox" id="form-i-links-people" name="form-i-links-people" <?php if (isset($_POST['form-i-links-people'])) { echo "checked";} ?> >
+					<label for="form-i-links-people">Links for people</label>
+					<input type="checkbox" id="form-i-links-organizations" name="form-i-links-organizations" <?php if (isset($_POST['form-i-links-organizations'])) { echo "checked";} ?> >
+					<label for="form-i-links-organizations">Links for organizations</label>	
 				</div>
 				<div class="uk-form-row">
 					<button id="button--submit" class="uk-button uk-button-primary uk-button-large" type="submit" disabled><i class="uk-icon uk-icon-flask"></i>Enhance</button>	
@@ -73,8 +78,18 @@
 					echo "</div>";
 				}
 
-
 				?>
+				<div class="uk-width-1-4">
+					<h3>hashtags</h3>
+					<?php 
+					$hashtags = $eh->getHashtags();
+					echo "<ul class='uk-list uk-list-line'>";
+					foreach ($hashtags as $ht) {
+					 	echo "<li><a href='https://www.instagram.com/explore/tags/" . substr($ht, 1) . "' target='_blank'>" . $ht . "</a></li>";
+					 } 
+					echo "</ul>";
+					?>
+				</div>
 				</div>
 			</div>
 		</section>

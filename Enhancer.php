@@ -11,6 +11,7 @@ class Enhancer {
 	private $text;
 	// meta data for text
 	private $meta;
+	private $hashtags;
 	private $result;
 	private $log;
 
@@ -51,7 +52,7 @@ class Enhancer {
 		if (isset($entities->entities->organization)) {
 			$this->meta->organizations = $entities->entities->organization;	
 		}
-
+		$this->fetchHashtags();
 		$this->wrapTextInParagraphs();
 
 		// insert images for locations & people
@@ -61,11 +62,45 @@ class Enhancer {
 		if (isset($_POST["form-i-images-people"]) && isset($this->meta->people)) {
 			$this->getImagesForPeople();
 		}
-		
+		if (isset($_POST["form-i-links-people"]) && isset($this->meta->people)) {
+			$this->getLinksForKeywords($this->meta->people);
+		}
+		if (isset($_POST["form-i-links-organizations"]) && isset($this->meta->organizations)) {
+			$this->getLinksForKeywords($this->meta->organizations);
+		}
 	}
 	function wrapTextInParagraphs() {
 		$wrappedText = "<p>" . implode( "</p><p>", preg_split( '/\n(?:\s*\n)+/', $this->text ) ) . "</p>";
 		$this->text = $wrappedText;
+	}
+	function fetchHashtags() {
+		$result = $this->textapi->Hashtags(array('text' => $this->text));
+		$this->hashtags = $result->hashtags;
+
+	}
+	function getHashtags() {
+		return $this->hashtags;
+
+	}
+	function getLinksForKeywords($keywords) {
+
+		foreach ($keywords as $person) {
+			$json = $this->get_url_contents('https://en.wikipedia.org/w/api.php?action=query&titles=' . rawurlencode($person) . '&prop=info&inprop=url&format=json');
+			$data = json_decode($json);
+
+			if (isset($data->query->pages)) {
+				foreach ($data->query->pages as $key => $page) {
+					$fullurl = $page->fullurl;
+					$title = $data->query->pages->title;
+					$amarkup = "<a href='" . $fullurl . "' title='" . $title . "' target='_blank'>" . $person . "</a>";
+					
+					$pos = strpos($this->text, $person);
+					$this->text = substr_replace($this->text,$amarkup,$pos,strlen($person));	
+				}
+				
+			}
+			
+		}
 	}
 	function getImagesForLocations() {
 
@@ -91,6 +126,7 @@ class Enhancer {
 		foreach ($this->meta->people as $person) {
 			$json = $this->get_url_contents('http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=' . urlencode($person) . $imgtype. $imgrights);
 			$data = json_decode($json);
+
 			// all results for one person
 			foreach ($data->responseData->results as $result) {
 				$results[$person][] = array('url' => $result->url, 'alt' => $result->title, 'tbUrl' => $result->tbUrl);
@@ -123,12 +159,19 @@ class Enhancer {
 	function get_url_contents($url) {
 		$crl = curl_init();
 
-		curl_setopt($crl, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)');
+		curl_setopt($crl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30');
 		curl_setopt($crl, CURLOPT_URL, $url);
 		curl_setopt($crl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, 5);
+		curl_setopt($crl, CURLOPT_FOLLOWLOCATION, true);
 
 		$ret = curl_exec($crl);
+
+		if (!$ret) {
+			var_dump($ret);
+			var_dump($crl);
+		  exit('cURL Error: '. curl_error($crl));
+		}
 		curl_close($crl);
 		return $ret;
 	}
