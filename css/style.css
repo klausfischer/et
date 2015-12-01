@@ -1,0 +1,29 @@
+body {
+	font-size: 14px;
+	line-height: 1.5rem;
+	-webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3,
+.uk-text-large {
+	font-weight: 300;
+}
+
+.figure {
+	float: left;
+	padding: 0.3em;
+	border: 1px solid #ccc;
+	margin: 0.5em 0.8em 0.5em 0;
+	clear: both;
+}
+.figure__caption {
+	font-size: 0.8em;
+	max-width: 150px;
+}
+.output {
+	clear: both;
+}
+.uk-button .uk-icon {
+	margin-right: 0.2em;
+}
