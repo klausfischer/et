@@ -29,7 +29,7 @@
 		
 		<section class="uk-grid section section--input">
 			
-			<form id="form-i" method="post" action="/" class="uk-form uk-width-1-1 uk-form-stacked">
+			<form id="form-i" method="post" class="uk-form uk-width-1-1 uk-form-stacked">
 				<div class="uk-form-row">
 					<textarea id="form-i-input" cols="30" rows="5" name="form-i-input" placeholder="Paste your text here" class="uk-width-1-1 uk-width-medium-1-2"><?php if ($_POST['form-i-input']) { echo $_POST['form-i-input']; }?></textarea>
 				</div>
@@ -57,10 +57,10 @@
 		
 		<section class="uk-grid section section--output uk-margin-large-bottom">
 			<h2 class="uk-width-1-1 uk-margin-bottom">Result</h2>
+
 			<div class="uk-width-1-1">
-				
-					<?php echo $eh->getEnhancedText(); ?>
-				
+				<button id="button--clipboard" class="uk-button uk-button-large"><i class="uk-icon uk-icon-clipboard"></i>Copy HTML</button>
+				<?php echo $eh->getEnhancedText(); ?>
 				
 			</div>
 		</section>
@@ -92,6 +92,16 @@
 				</div>
 				</div>
 			</div>
+		</section>
+
+		<section class="uk-grid section uk-hidden">
+			<h2 class="uk-width-1-1 uk-margin-bottom">HTML Source</h2>
+			<div class="uk-width-1-1">	
+				<pre><code id="sourceCode">
+					<?php echo htmlentities($eh->getEnhancedText()); ?>
+				</code></pre>
+			</div>
+			
 		</section>
 		<?php }	?> 
 	</main>

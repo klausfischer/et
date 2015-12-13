@@ -12,4 +12,8 @@ $(document).ready(function() {
 			$("#button--submit").attr("disabled", "disabled");
 		}
 	});
+
+	$("#button--clipboard").on("click", function(event) {
+		window.prompt("Copy to clipboard: Ctrl+C / CMD + C, Enter", $("#sourceCode").text());
+	});
 });
