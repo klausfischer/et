@@ -29,7 +29,7 @@
 		
 		<section class="uk-grid section section--input">
 			
-			<form id="form-i" method="post" class="uk-form uk-width-1-1 uk-form-stacked">
+			<form id="form-i" method="post" class="uk-form uk-width-1-1 uk-width-medium-3-4 uk-form-stacked">
 				<div class="uk-form-row">
 					<textarea id="form-i-input" cols="30" rows="5" name="form-i-input" placeholder="Paste your text here" class="uk-width-1-1 uk-width-medium-1-2"><?php if ($_POST['form-i-input']) { echo $_POST['form-i-input']; }?></textarea>
 				</div>
@@ -49,7 +49,17 @@
 				</div>
 				
 			</form>
+			<div class="uk-width-1-1 uk-width-medium-1-4 uk-hidden-small">
+			<figure>
+				<img  src="images/et.jpg" class="et" alt="">	
+				<figcaption>Good morning peoples!</figcaption>
+			</figure>
+				
+			</div>
+			
 		</section>
+
+
 		
 		<?php if ($_POST['form-i-input']) { 
 				$eh->analyzeText($_POST['form-i-input']);

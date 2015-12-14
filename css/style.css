@@ -21,6 +21,13 @@ h3,
 	font-size: 0.8em;
 	max-width: 150px;
 }
+figure {
+	max-width: 100%;
+}
+.et {
+	max-width: 100%;
+	margin-bottom: 0.2em;
+}
 .output {
 	clear: both;
 }
@@ -32,6 +39,10 @@ h3,
 }
 input[type="checkbox"] + label {
 	margin-left: 0.1em;
+}
+textarea {
+	min-width: 100%;
+	max-width: 100%;
 }
 code {
 	max-width: 100%;

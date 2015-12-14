@@ -23,9 +23,8 @@ class Enhancer {
 	function analyzeText($text) {
 		$this->text = $text;
 
-		
 		$entities = $this->textapi->Entities(array('text' => $this->text));
-
+	
 		// debug output
 		// foreach ($entities->entities as $type => $values) {
 		// 	printf($type . ": " . implode(', ', $values) . "<br/><br/>");
